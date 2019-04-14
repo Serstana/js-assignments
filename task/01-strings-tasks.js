@@ -201,7 +201,32 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    var result = '';
+    for(var i = 0; i < height; ++i){
+        if(i == 0){
+            result +='┌';
+        }else if(i == height - 1){
+            result += '└';
+        }else{
+            result += '│';
+        }
+        for(var j = 1; j < width - 1; ++j){
+            if((i == 0) || (i == height - 1)){
+                result += '─';
+            }else{
+                result += ' ';
+            }
+        }
+        if(i == 0){
+            result +='┐';
+        }else if(i == height - 1){
+            result += '┘';
+        }else{
+            result += '│';
+        }
+        result += '\n';
+    }
+    return result;
 }
 
 
@@ -221,7 +246,28 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    var utable = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var ltable = 'abcdefghijklmnopqrstuvwxyz';
+    var pos = 0;
+    var result = '';
+    for(var i = 0; i < str.length; ++i){
+        if(utable.indexOf(str[i]) >= 0){
+            pos = utable.indexOf(str[i]) + 13;
+            if(pos >= utable.length){
+                pos -= utable.length;
+            }
+            result += utable[pos];
+        }else if(ltable.indexOf(str[i]) >= 0){
+            pos = ltable.indexOf(str[i]) + 13;
+            if(pos >= ltable.length){
+                pos -= ltable.length;
+            }
+            result += ltable[pos];
+        }else{
+            result += str[i];
+        }
+    }
+    return result;
 }
 
 /**
@@ -238,7 +284,16 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    if(value == undefined) return false;
+    if(value.length > 0){
+        for(var i = 0; i < value.length; ++i){
+            if(chars.indexOf(value[i])){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 
@@ -267,7 +322,11 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    var cards = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+    'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+    'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+    'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    return cards.indexOf(value);
 }
 
 

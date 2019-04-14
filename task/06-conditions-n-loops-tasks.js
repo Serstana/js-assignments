@@ -30,7 +30,13 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    if(num%3==0&&num%5==0){
+        return 'FizzBuzz';
+    }else if(num=='Fizz'||num%3==0){
+        return 'Fizz';
+    }else if(num=='Buzz'||num%5==0){
+        return 'Buzz';
+    } return num;
 }
 
 
@@ -46,7 +52,9 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    for (var i=n-1;i>0;i--){
+        n*=i;
+    } return n;
 }
 
 
@@ -63,7 +71,10 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    var sum=0;
+    for(var i=n1;i<=n2;i++){
+       sum+=i;
+    } return sum;
 }
 
 
@@ -82,7 +93,9 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    if(a+b>c&&a+c>b&&b+c>a){
+        return true;
+    } return false;
 }
 
 
@@ -119,7 +132,10 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    if(rect2.top>rect1.top+rect1.height||rect1.left+rect1.width<rect2.left){
+        return false;
+    }
+    return true;
 }
 
 
@@ -150,7 +166,9 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    if(Math.pow((point.x-circle.center.x),2)+Math.pow((point.y-circle.center.y),2)<Math.pow((circle.radius),2)){
+        return true;
+    } return false;
 }
 
 
@@ -166,7 +184,11 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    for(let i=0;i<str.length;i++){
+        if(str.indexOf(str[i])==str.lastIndexOf(str[i])){
+            return str[i];
+        }
+    }
 }
 
 
@@ -209,7 +231,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    return str.split("").reverse().join("");
 }
 
 
@@ -226,7 +248,12 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    var i='';
+    while(num>0){
+        i+=num%10;
+        num=Math.floor(num/10);
+    }
+    return i;
 }
 
 
@@ -270,7 +297,15 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    var sum=0;
+    while(num>9){
+        while(num>0){
+            sum+=num%10;
+            num=Math.floor(num/10);
+        }num=sum;
+        sum=0;
+    }
+    return num;
 }
 
 
@@ -296,7 +331,37 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+  let bracketsConfig=[['[',']'],['(',')'],['{','}'],['<','>']];
+  let vrMas=[];
+  let result;
+  let prohod=bracketsConfig.length; 
+  for (let i=1; i<=str.length;i++){
+    let openBracket=str[i-1];
+    for(let j=0;j<prohod;j++){
+      if(openBracket==bracketsConfig[j][0]&&openBracket!=bracketsConfig[j][1]){
+        vrMas.unshift(openBracket);
+        }if(openBracket==bracketsConfig[j][0]&&openBracket==bracketsConfig[j][1]){
+          if(openBracket!=vrMas[0]){
+            vrMas.unshift(openBracket);
+            }else{
+              vrMas.shift(); 
+            }
+          }else if (openBracket==bracketsConfig[j][1]){
+            openBracket=bracketsConfig[j][0];
+            if(openBracket==vrMas[0]){
+              vrMas.shift();
+            }else{
+              vrMas.unshift(0);
+            }
+          }
+        }
+    }
+  if (vrMas.length==0){
+    result=true;
+    }else{
+      result=false;
+  }
+  return result;
 }
 
 
@@ -356,7 +421,18 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+  var output="";
+  if(n==10){
+  output+=num;
+  }else if(num>1){
+    while(num>1){
+    output=Math.floor(num%n)+output;
+    num/=n;
+    } 
+    if(Math.floor(num)==1){
+        output=Math.floor(num)+output;
+    }
+  }return output;
 }
 
 
